@@ -1,7 +1,22 @@
 ﻿@page "/"
+@inject HttpClient Http
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<div>
+    <button @onclick="CallAsync">Call</button>
+    <p>@GreetingMessage</p>
+</div>
+
+@code {
+    public string GreetingMessage { get; set; } = "";
+    private async Task CallAsync(MouseEventArgs args)
+    {
+        // 動作確認用に自分自身の API を呼び出す。本当は構成ファイルから URL は取得するべき。
+        GreetingMessage = await Http.GetStringAsync("https://localhost:7232/greeting");
+    }
+}
