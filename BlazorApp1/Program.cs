@@ -1,10 +1,14 @@
-using BlazorApp1.Components;
+﻿using BlazorApp1.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddControllers();
+
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
@@ -20,6 +24,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.MapControllers();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
